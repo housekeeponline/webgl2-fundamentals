@@ -1,5 +1,7 @@
 Title: WebGL 3D Perspective Correct Texturemapping
 Description: What's special about W
+TOC: Perspective Correct Texture Mapping
+
 
 This post is a continuation of a series of posts about WebGL.  The first
 [started with fundamentals](webgl-fundamentals.html). This article
@@ -48,7 +50,7 @@ We had a simple fragment shader that draws a constant color
 
       void main() {
         // Just set the output to a constant redish-purple
-        gl_FragColor = vec4(1, 0, 0.5, 1);
+        outColor = vec4(1, 0, 0.5, 1);
       }
 
 So let's make that draw 2 rectangles in clipspace. We'll pass it this

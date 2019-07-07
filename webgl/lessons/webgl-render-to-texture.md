@@ -1,5 +1,7 @@
 Title: WebGL2 Rendering to a Texture
 Description: How to render to a texture.
+TOC: Render to Texture
+
 
 This post is a continuation of a series of posts about WebGL2.
 The first [started with fundamentals](webgl-fundamentals.html) and

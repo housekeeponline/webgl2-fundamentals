@@ -1,20 +1,18 @@
 Title: WebGL2 Fundamentals
 Description: Your first WebGL2 lesson starting with the fundamentals
+TOC: Fundamentals
+
 
 First things first, these articles are about WebGL2. If you're interested in WebGL 1.0
-[please go here](http://webglfundamentals.org). Note that WebGL 2 is [nearly 100% backward
-compatible with WebGL 1](webgl1-backward-compatibility.html). That said, once you enable
-WebGL 2 you might as well use it as it was meant to be used. These tutorials follow
+[please go here](http://webglfundamentals.org). Note that WebGL2 is [nearly 100% backward
+compatible with WebGL 1](webgl1-to-webgl2.html). That said, once you enable
+WebGL2 you might as well use it as it was meant to be used. These tutorials follow
 that path.
-
-[test](#日本語のテクスト)
 
 WebGL is often thought of as a 3D API. People think "I'll use WebGL and *magic* I'll get cool 3d".
 In reality WebGL is just a rasterization engine. It draws points, lines, and triangles based
 on code you supply. Getting WebGL to do anything else is up to you to provide code to use points, lines,
 and triangles to accomplish your task.
-
-## 日本語のテクスト
 
 WebGL runs on the GPU on your computer. As such you need to provide the code that runs on that GPU.
 You provide that code in the form of pairs of functions. Those 2 functions are called a vertex shader
@@ -113,7 +111,8 @@ you could imagine it would be used like this
       var size = 4;
       for (var i = 0; i < count; ++i) {
          // copy the next 4 values from positionBuffer to the a_position attribute
-         attributes.a_position = positionBuffer.slice((offset + i) * stide, size);
+         const start = (offset + i) * stride;
+         attributes.a_position = positionBuffer.slice(start, start + size);
          runVertexShader();
          ...
          doSomethingWith_gl_Position();
@@ -493,8 +492,10 @@ with that [boilerplate](webgl-boilerplate.html) code.
 
 {{{example url="../webgl-2d-rectangle.html" }}}
 
-Again you might notice the rectangle is near the bottom of that area. WebGL considers the bottom left
-corner to be 0,0. To get it to be the more traditional top left corner used for 2d graphics APIs
+Again you might notice the rectangle is near the bottom of that area. WebGL considers positive Y as
+up and negative Y as down. In clip space the bottom left corner -1,-1. We haven't changed any signs
+so with our current math 0, 0 becomes the bottom left corner.
+To get it to be the more traditional top left corner used for 2d graphics APIs
 we can just flip the clip space y coordinate.
 
     *   gl_Position = vec4(clipSpace * vec2(1, -1), 0, 1);

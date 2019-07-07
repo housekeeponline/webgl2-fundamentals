@@ -1,5 +1,7 @@
 Title: Configuração e Instalação da WebGL
 Description: Como desenvolver para a WebGL
+TOC: WebGL2 Configuração e Instalação
+
 
 Tecnicamente, você não precisa de nada além um navegador para trabalhar com a WebGL.
 Vá para [jsfiddle.net](https://jsfiddle.net/greggman/8djzyjL3/) ou [jsbin.com](http://jsbin.com)
@@ -13,7 +15,7 @@ o que significa que você não pode acessar facilmente imagens da Web para o seu
 Além disso, é rápido trabalhar com tudo localmente.
 
 Vamos supor que você deseja executar e editar as amostras neste site. A primeira coisa que você deve
- fazer é o download do site. [Você pode baixar aqui](https://github.com/greggman/webgl2-fundamentals/tree/gh-pages).
+ fazer é o download do site. [Você pode baixar aqui](https://github.com/gfxfundamentals/webgl2-fundamentals/tree/gh-pages).
 
 {{{image url="resources/download-webglfundamentals.gif" }}}
 
@@ -25,9 +27,9 @@ Em seguida, você deve instalar um pequeno servidor web. Eu sei que o "servidor 
 servers são extremamente simples](http://games.greggman.com/game/saving-and-loading-files-in-a-web-page/).
 
 Se você estiver usando o Chrome, aqui está uma solução simples.
-[Aqui está uma pequena extensão do Chrome que é um servidor web](https://chrome.google.com/webstore/detail/web-server-for-chrome/ofhbbkphhbklhfoeikjpcbhemlocgigb?hl=en)
+[Servez](https://greggman.github.io/servez)
 
-{{{image url="resources/chrome-webserver.png" }}}
+{{{image url="" }}}
 
 Basta apontá-lo para a pasta onde você descompactou os arquivos e clicar em uma das URLs do servidor web.
 
@@ -102,4 +104,4 @@ um arquivo separado, você sempre poderá ver o código fonte nas ferramentas do
 
 ## Iniciando
 
-Espero que isso te ajude a começar. [Agora de volta às lições](/).
+Espero que isso te ajude a começar. [Agora de volta às lições](index.html).

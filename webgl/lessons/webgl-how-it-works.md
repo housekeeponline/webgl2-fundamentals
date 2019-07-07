@@ -1,5 +1,7 @@
-﻿Title: WebGL How It Works
+Title: WebGL How It Works
 Description: What WebGL is really doing under the hood
+TOC: How It Works
+
 
 This is a continuation from [WebGL Fundamentals](webgl-fundamentals.html).
 Before we continue I think we need to discuss at a
@@ -14,7 +16,7 @@ When you call
 
 The 9 there means "process 9 vertices" so here are 9 vertices being processed.
 
-<img src="resources/vertex-shader-anim.gif" class="webgl_center" />
+<div class="webgl_center"><img src="resources/vertex-shader-anim.gif" /></div>
 
 On the left is the data you provide.  The vertex shader is a function you
 write in [GLSL](webgl-shaders-and-glsl.html).  It gets called once for each vertex.
@@ -29,7 +31,7 @@ pixel it will call your fragment shader asking you what color to make that
 pixel. Your fragment shader has output a vec4
 with the color it wants for that pixel.
 
-That’s all very interesting but as you can see in our examples to up
+That’s all very interesting but as you can see in our examples up to
 this point the fragment shader has very little info per pixel.
 Fortunately we can pass it more info.  We define “varyings” for each
 value we want to pass from the vertex shader to the fragment shader.
@@ -276,7 +278,7 @@ attribute and passing data from a vertex shader to a fragment shader.  If
 you check out [the image processing examples](webgl-image-processing.html)
 you'll see they also use an extra attribute to pass in texture coordinates.
 
-##What do these buffer and attibute commands do?
+##What do these buffer and attribute commands do?
 
 Buffers are the way of getting vertex and other per vertex data onto the
 GPU.  `gl.createBuffer` creates a buffer.

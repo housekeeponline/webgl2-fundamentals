@@ -1,5 +1,7 @@
-﻿Title: Escala 2D WebGL
+Title: Escala 2D WebGL
 Description: Como escalar em 2D
+TOC: Escala 2D WebGL2
+
 
 Esta publicação é uma continuação de uma série de postagens sobre a WebGL.
 O primeiro artigo [abordou os fundamentos](webgl-fundamentals.html) e o

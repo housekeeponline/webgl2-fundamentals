@@ -1,5 +1,7 @@
 Title: WebGL2 from WebGL1
 Description: How to move from WebGL1 to WebGL2
+TOC: Moving from WebGL1 to WebGL2
+
 
 WebGL2 is nearly 100% backward compatible with WebGL1.
 If you only use WebGL1 features then then there are

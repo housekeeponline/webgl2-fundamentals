@@ -1,5 +1,7 @@
 Title: WebGL 3D - Cameras
 Description: How cameras work in WebGL
+TOC: 3D - Cameras
+
 
 This post is a continuation of a series of posts about WebGL.
 The first [started with fundamentals](webgl-fundamentals.html) and
@@ -30,9 +32,10 @@ We need to effectively move the world in front of the camera.  The easiest
 way to do this is to use an "inverse" matrix.  The math to compute an
 inverse matrix in the general case is complex but conceptually it's easy.
 The inverse is the value you'd use to negate some other value.  For
-example, the inverse of 123 is -123.  The inverse of a scale matrix that
-scaled by 5 would be 1/5th or 0.2.  The inverse of a matrix that rotated
-30&deg; in X would be one that rotates -30&deg; in X.
+example, the inverse of a matrix that translates in X by 123 is a matrix that
+translates in X by -123.  The inverse of a matrix that
+scales by 5 is a matrix that scales by 1/5th or 0.2.  The inverse of a matrix that rotates
+30&deg; around the X axis would be one that rotates -30&deg; around the X axis.
 
 
 Up until this point we've used translation, rotation and scale to affect
@@ -195,7 +198,7 @@ you'll get the opposite answer.
 In any case if we compute the cross product of our <span style="color: blue;">`zAxis`</span> and
 <span style="color: gray;">`up`</span> we'll get the <span style="color:red;">xAxis</span> for the camera.
 
-{{{diagram url="resources/cross-product-diagram.html?mode=1" caption="<span style='color:blue;'>zAxis</span> cross <span style='color:gray;'>up</span> = <span style='color:red;'>xAxis</span>" }}}
+{{{diagram url="resources/cross-product-diagram.html?mode=1" caption="<span style='color:gray;'>up</span> cross <span style='color:blue;'>zAxis</span> = <span style='color:red;'>xAxis</span>" }}}
 
 And now that we have the <span style="color:red;">`xAxis`</span> we can cross the <span style="color:blue;">`zAxis`</span> and the <span style="color:red;">`xAxis`</span>
 which will give us the camera's <span style="color:green;">`yAxis`</span>
@@ -257,8 +260,8 @@ var m4 = {
   lookAt: function(cameraPosition, target, up) {
     var zAxis = normalize(
         subtractVectors(cameraPosition, target));
-    var xAxis = cross(up, zAxis);
-    var yAxis = cross(zAxis, xAxis);
+    var xAxis = normalize(cross(up, zAxis));
+    var yAxis = normalize(cross(zAxis, xAxis));
 
     return [
       xAxis[0], xAxis[1], xAxis[2], 0,

@@ -1,5 +1,7 @@
 Title: WebGL2 What's New
 Description: What's new in WebGL2
+TOC: What's new in WebGL2
+
 
 WebGL2 is a pretty significant upgrade from WebGL1.
 If you're coming from WebGL1 and you want to know
@@ -109,7 +111,7 @@ select the slice in your shader
 
 ## Non-Power of 2 Texture Support
 
-in WebGL1 textures that were not a power of 2 could not have mips.
+In WebGL1 textures that were not a power of 2 could not have mips.
 In WebGL2 that limit is removed. Non-power of 2 texture work exactly
 the same as power of 2 textures.
 
@@ -226,11 +228,6 @@ samplers, all the filtering and repeat/clamping parameters
 that were part of a texture move to the sampler. This means
 a single texture can be sampled in different ways. Repeating
 or clamped. Filtered or not filtered.
-
-A mini side rant: I've written 6 game engines. I've never
-personally ever had an artist need to filter textures in
-multiple ways. I'd be curious to know if any other game
-engine devs have had a different experience.
 
 ## Depth Textures
 

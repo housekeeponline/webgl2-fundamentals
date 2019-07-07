@@ -1,5 +1,7 @@
 Title: WebGL2 para a WebGL1
 Description: Como passar da WebGL1 para a WebGL2
+TOC: Migrando do WebGL1 para a WebGL2
+
 
 WebGL2 é quase 100% compatível com o WebGL1.
 Se você usar apenas os recursos da WebGL1, então há

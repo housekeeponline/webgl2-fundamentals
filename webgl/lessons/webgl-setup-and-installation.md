@@ -1,5 +1,7 @@
 Title: WebGL Setup and Installation
 Description: How to do WebGL development
+TOC: Setup And Installation
+
 
 Techincally you don't need anything other than a web browser to do WebGL
 development. Go to [jsfiddle.net](https://jsfiddle.net/greggman/8djzyjL3/) or [jsbin.com](http://jsbin.com)
@@ -13,7 +15,7 @@ which means you can't easily access images from around the web for your WebGL wo
 On top of that it's just faster to work with everything local.
 
 Let's assume you want to run and edit the samples on this site. The first thing you should
- do is download the site. [You can download it here](https://github.com/greggman/webgl2-fundamentals/tree/gh-pages).
+ do is download the site. [You can download it here](https://github.com/gfxfundamentals/webgl2-fundamentals/tree/gh-pages).
 
 {{{image url="resources/download-webglfundamentals.gif" }}}
 
@@ -102,4 +104,4 @@ you can always view the source in the devtools
 
 ## Get Started
 
-Hopefully that helps you get started. [Now back to the lessons](/).
+Hopefully that helps you get started. [Now back to the lessons](index.html).

@@ -5,41 +5,35 @@
   "main": "index.js",
   "dependencies": {},
   "devDependencies": {
-    "eslint-plugin-google-camelcase": "0.0.1",
-    "eslint-plugin-html": "git+https://github.com/greggman/eslint-plugin-html.git#fix-space-eating",
+    "eslint-plugin-google-camelcase": "0.0.2",
+    "eslint-plugin-html": "^5.0.5",
+    "eslint-plugin-markdown": "^1.0.0",
     "eslint-plugin-one-variable-per-var": "0.0.3",
     "eslint-plugin-optional-comma-spacing": "0.0.4",
     "eslint-plugin-require-trailing-comma": "0.0.1",
-    "feed": "^0.2.6",
-    "glob": "^4.0.2",
-    "grunt": "^1.0.1",
-    "grunt-cli": "^1.2.0",
-    "grunt-contrib-clean": "^1.0.0",
+    "@gfxfundamentals/lesson-builder": "git://github.com/gfxfundamentals/lesson-builder.git#master",
+    "@gfxfundamentals/live-editor": "git://github.com/gfxfundamentals/live-editor.git#master",
+    "grunt": "^1.0.4",
+    "grunt-cli": "^1.3.2",
+    "grunt-contrib-clean": "^2.0.0",
     "grunt-contrib-copy": "^1.0.0",
-    "grunt-eslint": "^18.0.0",
-    "grunt-jsdoc": "^2.1.1",
-    "handlebars": "^3.0.2",
-    "hanson": "^1.1.1",
-    "htmlparser2": "^3.7.2",
-    "http-server": "^0.9.0",
-    "inmemfilecache": "0.0.1",
-    "load-grunt-tasks": "^3.4.1",
-    "marked": "git://github.com/greggman/marked.git#raw-html",
-    "minami": "^1.2.3",
-    "minimist": "^0.1.0",
-    "moment": "^2.17.0",
-    "mout": "^0.9.1",
-    "promise": "^7.0.3",
-    "sitemap": "git://github.com/greggman/sitemap.js#multiple-langs"
+    "grunt-contrib-watch": "^1.1.0",
+    "grunt-eslint": "^21.0.0",
+    "grunt-jsdoc": "^2.4.0",
+    "http-server": "^0.11.1",
+    "load-grunt-tasks": "^4.0.0",
+    "minami": "^1.2.3"
   },
   "scripts": {
     "build": "grunt",
+    "watch": "grunt buildwatch",
     "start": "http-server out",
+    "eslint": "grunt eslint",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
-    "url": "git://github.com/greggman/webgl2-fundamentals.git"
+    "url": "git://github.com/gfxfundamentals/webgl2-fundamentals.git"
   },
   "keywords": [
     "WebGL"
@@ -47,7 +41,7 @@
   "author": "Gregg Tavares",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/greggman/webgl2-fundamentals/issues"
+    "url": "https://github.com/gfxfundamentals/webgl2-fundamentals/issues"
   },
-  "homepage": "https://github.com/greggman/webgl2-fundamentals"
+  "homepage": "https://github.com/gfxfundamentals/webgl2-fundamentals"
 }

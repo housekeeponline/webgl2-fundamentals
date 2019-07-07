@@ -1,5 +1,6 @@
-Title: WebGL 3D - Textures
+Title: WebGL Textures
 Description: How textures work in WebGL
+TOC: Textures
 
 This post is a continuation of a series of posts about WebGL.
 The first [started with fundamentals](webgl-fundamentals.html)
@@ -149,7 +150,7 @@ because until you draw something and orient it there is no top and bottom. What 
 supply texture data to WebGL. The start of that data starts at texture coordinate 0,0
 and the end of that data is at 1,1
 
-<img class="webgl_center" width="405" src="resources/texture-coordinates-diagram.svg" />
+<img class="webgl_center noinvertdark" width="405" src="resources/texture-coordinates-diagram.svg" />
 
 I loaded the texture into photoshop and looked up the various coordinates in pixels.
 
@@ -236,7 +237,7 @@ So what the GPU does is it uses a mipmap. A mipmap is a collection of progressiv
 each one 1/4th the size of the previous one. The mipmap for the 16x16 texture above would look something like
 this.
 
-<img class="webgl_center" src="resources/mipmap-low-res-enlarged.png" />
+<img class="webgl_center noinvertdark nobg" src="resources/mipmap-low-res-enlarged.png" />
 
 Generally each smaller level is just a bilinear interpolation of the previous level and that's
 what `gl.generateMipmap` does. It looks at the biggest level and generates all the smaller levels for you.
@@ -285,7 +286,7 @@ them. If you look close you can see how it's still blocky, especially in the hor
 The bottom right is using `LINEAR_MIPMAP_LINEAR` which is picking the best 2 mips, picking 4 pixels from each,
 and blends all 8 pixels.
 
-<img class="webgl_center" src="resources/different-colored-mips.png" />
+<img class="webgl_center noinvertdark nobg" src="resources/different-colored-mips.png" />
 <div class="webgl_center">different colored mips</div>
 
 You might be thinking why would you ever pick anything other than `LINEAR_MIPMAP_LINEAR` which is arguably
@@ -320,7 +321,7 @@ Something to be aware of, WebGL2 requires textures to be "texture complete" othe
    The easiest way to do that is to call `gl.generateMipmap`. Otherwise if you provide your own mips you need to provide
    all of them or you'll get an error.
 
-<a name="texture-atlas" />A common question is "How do I apply a different image to each face of a cube?". For example let's say we
+<a name="texture-atlas"></a>A common question is "How do I apply a different image to each face of a cube?". For example let's say we
 had these 6 images.
 
 <div class="webgl_table_div_center">
@@ -334,8 +335,9 @@ had these 6 images.
     }
   </style>
   <table class="webgl_table_center">
-  <tr><td><img src="resources/noodles-01.jpg" /></td><td><img src="resources/noodles-02.jpg" /></td><td><img src="resources/noodles-03.jpg" /></td></tr>
-  <tr><td><img src="resources/noodles-04.jpg" /></td><td><img src="resources/noodles-05.jpg" /></td><td><img src="resources/noodles-06.jpg" /></td></tr>
+    <tr><td><img src="resources/noodles-01.jpg" /></td><td><img src="resources/noodles-02.jpg" /></td></tr>
+    <tr><td><img src="resources/noodles-03.jpg" /></td><td><img src="resources/noodles-04.jpg" /></td></tr>
+    <tr><td><img src="resources/noodles-05.jpg" /></td><td><img src="resources/noodles-06.jpg" /></td></tr>
   </table>
 </div>
 
@@ -359,42 +361,42 @@ like this
 
 and then use a different set of texture coordinates for each face of the cube.
 
-        // select the bottom left image
+        // select the top left image
         0   , 0  ,
         0   , 0.5,
         0.25, 0  ,
         0   , 0.5,
         0.25, 0.5,
         0.25, 0  ,
-        // select the bottom middle image
+        // select the top middle image
         0.25, 0  ,
         0.5 , 0  ,
         0.25, 0.5,
         0.25, 0.5,
         0.5 , 0  ,
         0.5 , 0.5,
-        // select to bottom right image
+        // select to top right image
         0.5 , 0  ,
         0.5 , 0.5,
         0.75, 0  ,
         0.5 , 0.5,
         0.75, 0.5,
         0.75, 0  ,
-        // select the top left image
+        // select the bottom left image
         0   , 0.5,
         0.25, 0.5,
         0   , 1  ,
         0   , 1  ,
         0.25, 0.5,
         0.25, 1  ,
-        // select the top middle image
+        // select the bottom middle image
         0.25, 0.5,
         0.25, 1  ,
         0.5 , 0.5,
         0.25, 1  ,
         0.5 , 1  ,
         0.5 , 0.5,
-        // select the top right image
+        // select the bottom right image
         0.5 , 0.5,
         0.75, 0.5,
         0.5 , 1  ,
@@ -411,8 +413,9 @@ It's best because there's just 1 texture to load, the shader stays simple as it 
 requires 1 draw call to draw the shape instead of 1 draw call per texture as it might if we split it into
 planes.
 
-A few other very importanting things you might want to know about textures.
-One is [how to use 2 or more textures at once](webgl-2-texutres.html). The other
+A few other very important things you might want to know about textures.
+One is [how texture unit state works](webgl-texture-units.html).
+One is [how to use 2 or more textures at once](webgl-2-textures.html). The other
 is [how to use images from other domains](webgl-cors-permission.html).
 
 Next up [lets start simplifying with less code more fun](webgl-less-code-more-fun.html).

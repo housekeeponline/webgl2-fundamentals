@@ -1,5 +1,7 @@
 Title: WebGL 3D - Spot Lighting
 Description: How to implement spot lights in WebGL
+TOC: Spot Lighting
+
 
 This article is a continuation of [WebGL 3D Point
 Lighting](webgl-3d-lighting-point.html).  If you haven't read that I
@@ -63,7 +65,7 @@ Let's do that
 First let's modify our fragment shader from
 [the last article](webgl-3d-lighting-point.html).
 
-```
+```glsl
 #version 300 es
 precision mediump float;
 
@@ -82,7 +84,7 @@ out vec4 outColor;
 
 void main() {
   // because v_normal is a varying it's interpolated
-  // we it will not be a uint vector. Normalizing it
+  // so it will not be a unit vector. Normalizing it
   // will make it a unit vector again
   vec3 normal = normalize(v_normal);
 
@@ -117,7 +119,7 @@ void main() {
 Of course we need to look up the locations of the uniforms we
 just added.
 
-```
+```js
   var lightDirection = [?, ?, ?];
   var limit = degToRad(20);
 
@@ -129,7 +131,7 @@ just added.
 
 and we need to set them
 
-```
+```js
     gl.uniform3fv(lightDirectionLocation, lightDirection);
     gl.uniform1f(limitLocation, Math.cos(limit));
 ```
@@ -171,7 +173,7 @@ second value is greater than or equal the first it returns 1.0. Otherwise it ret
 
 Let's use `step` to get rid of the conditions
 
-```
+```glsl
   float dotFromDirection = dot(surfaceToLightDirection,
                                -u_lightDirection);
   // inLight will be 1 if we're inside the spotlight and 0 if not
@@ -195,7 +197,7 @@ then lerp between 1.0 and 0.0.
 
 Here's one way we could do this
 
-```
+```glsl
 -uniform float u_limit;          // in dot space
 +uniform float u_innerLimit;     // in dot space
 +uniform float u_outerLimit;     // in dot space
@@ -233,7 +235,7 @@ those bounds.
 
 Let's do that
 
-```
+```glsl
   float dotFromDirection = dot(surfaceToLightDirection,
                                -u_lightDirection);
 -  float limitRange = u_innerLimit - u_outerLimit;
@@ -251,7 +253,7 @@ The difference is `smoothstep` uses a hermite interpolation instead of a
 linear interpolation. That means between `lowerBound` and `upperBound`
 it intepolates like the image below on the right whereas a linear interpolation is like the image on the left.
 
-<img class="webgl_center" src="resources/linear-vs-hermite.png" />
+<img class="webgl_center invertdark" src="resources/linear-vs-hermite.png" />
 
 It's up to you if you think the difference matters.
 

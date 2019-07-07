@@ -1,9 +1,25 @@
 Title: WebGL 2D Matrices
 Description: How matrix math works explained in simple easy to follow directions.
+TOC: 2D Matrices
+
 
 This post is a continuation of a series of posts about WebGL. The first
 [started with fundamentals](webgl-fundamentals.html) and the previous
 was [about scaling 2D geometry](webgl-2d-scale.html).
+
+<div class="webgl_bottombar">
+<h3>Math vs Programming vs WebGL</h3>
+<p>
+Before we get started, if you have previously studied linear algebra or in general
+have experience working with matrices then 
+<a href="webgl-matrix-vs-math.html"><b>please read this article before
+continuing below.</b></a>.
+</p>
+<p>
+If you have little to no experience with matrices then feel free
+to skip the link above for now and continue reading.
+</p>
+</div>
 
 In the last 3 posts we went over how to [translate geometry](webgl-2d-translation.html),
 [rotate geometry](webgl-2d-rotation.html), and [scale geometry](webgl-2d-scale.html).
@@ -155,6 +171,43 @@ together and apply all the transformations at once. Let's assume we have
 a function, `m3.multiply`, that takes two matrices, multiplies them and
 returns the result.
 
+```js
+var m3 = {
+  multiply: function(a, b) {
+    var a00 = a[0 * 3 + 0];
+    var a01 = a[0 * 3 + 1];
+    var a02 = a[0 * 3 + 2];
+    var a10 = a[1 * 3 + 0];
+    var a11 = a[1 * 3 + 1];
+    var a12 = a[1 * 3 + 2];
+    var a20 = a[2 * 3 + 0];
+    var a21 = a[2 * 3 + 1];
+    var a22 = a[2 * 3 + 2];
+    var b00 = b[0 * 3 + 0];
+    var b01 = b[0 * 3 + 1];
+    var b02 = b[0 * 3 + 2];
+    var b10 = b[1 * 3 + 0];
+    var b11 = b[1 * 3 + 1];
+    var b12 = b[1 * 3 + 2];
+    var b20 = b[2 * 3 + 0];
+    var b21 = b[2 * 3 + 1];
+    var b22 = b[2 * 3 + 2];
+
+    return [
+      b00 * a00 + b01 * a10 + b02 * a20,
+      b00 * a01 + b01 * a11 + b02 * a21,
+      b00 * a02 + b01 * a12 + b02 * a22,
+      b10 * a00 + b11 * a10 + b12 * a20,
+      b10 * a01 + b11 * a11 + b12 * a21,
+      b10 * a02 + b11 * a12 + b12 * a22,
+      b20 * a00 + b21 * a10 + b22 * a20,
+      b20 * a01 + b21 * a11 + b22 * a21,
+      b20 * a02 + b21 * a12 + b22 * a22,
+    ];
+  }
+}
+```
+
 To make things clearer let's make functions to build matrices for
 translation, rotation and scale.
 
@@ -188,7 +241,7 @@ translation, rotation and scale.
 
 Now let's change our shader. The old shader looked like this
 
-```
+```glsl
 #version 300 es
 
 in vec2 a_position;
@@ -213,7 +266,7 @@ void main() {
 
 Our new shader will be much simpler.
 
-```
+```glsl
 #version 300 es
 
 in vec2 a_position;
@@ -229,7 +282,7 @@ void main() {
 
 And here's how we use it
 
-```
+```js
   // Draw the scene.
   function drawScene() {
     webglUtils.resizeCanvasToDisplaySize(gl.canvas);
@@ -299,7 +352,7 @@ a sun, or branches on a tree. For a simple example of hierarchical
 animation lets draw draw our 'F' 5 times but each time lets start with
 the matrix from the previous 'F'.
 
-```
+```js
     // Draw the scene.
     function drawScene() {
 
@@ -365,7 +418,7 @@ But now, because we can do matrix math and we can choose the order that
 transforms are applied we can effectively move the origin before the rest
 of the transforms are applied.
 
-```
+```js
     // make a matrix that will move the origin of the 'F' to its center.
     var moveOriginMatrix = m3.translation(-50, -75);
     ...
@@ -436,7 +489,7 @@ Now we can simplify the shader even more. Here's the entire new vertex shader.
 
 And in JavaScript we need to multiply by the projection matrix
 
-```
+```js
   // Draw the scene.
   function drawScene() {
     ...
@@ -471,7 +524,7 @@ Before we move on let's simplifiy a little bit. While it's common to generate
 various matrices and separately multiply them together it's also common to just
 multiply them as we go. Effectively we could functions like this
 
-```
+```js
 var m3 = {
 
   ...
@@ -495,7 +548,7 @@ var m3 = {
 
 This would let us change 7 lines of matrix code above to just 4 lines like this
 
-```
+```js
 // Compute the matrix
 var matrix = m3.projection(gl.canvas.clientWidth, gl.canvas.clientHeight);
 matrix = m3.translate(matrix, translation[0], translation[1]);

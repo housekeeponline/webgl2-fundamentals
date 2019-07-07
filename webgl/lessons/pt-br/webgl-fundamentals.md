@@ -1,9 +1,11 @@
 Title: Fundamentos da WebGL2
 Description: Sua primeira lição da WebGL2: começando com os fundamentos
+TOC: Fundamentos da WebGL2
+
 
 Primeiramente, esses artigos são sobre a WebGL2. Se você está interessado na WebGL 1.0
 [por favor, vá aqui](http://webglfundamentals.org). Observe que a WebGL2 é [quase 100% compatível
-com a WebGL1](webgl1-backward-compatibility.html). Dito isto, uma vez que você habilita a
+com a WebGL1](webgl1-to-webgl2.html). Dito isto, uma vez que você habilita a
 WebGL2, você também pode usá-la como ela deveria ser usada. Esses tutoriais seguem esse raciocínio.
 
 [test](#日本語のテクスト)
@@ -111,7 +113,7 @@ você poderia imaginar que isso seria utilizado como o exemplo abaixo
       var size = 4;
       for (var i = 0; i < count; ++i) {
          // copia os 4 próximos valores do positionBuffer para o atributo a_position
-         attributes.a_position = positionBuffer.slice((offset + i) * stide, size);
+         attributes.a_position = positionBuffer.slice((offset + i) * stride, size);
          runVertexShader();
          ...
          doSomethingWith_gl_Position();

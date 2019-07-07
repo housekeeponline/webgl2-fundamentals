@@ -1,5 +1,7 @@
 Title: WebGL - Orthographic 3D
 Description: How to do 3D in WebGL starting with an orthographic projection.
+TOC: Orthographic 3D
+
 
 This post is a continuation of a series of posts about WebGL.
 The first [started with fundamentals](webgl-fundamentals.html) and
@@ -20,7 +22,7 @@ but this time a 3D 'F'.
 The first thing we need to do is change the vertex shader to handle 3D.
 Here's the old vertex shader.
 
-```
+```js
 #version 300 es
 
 // an attribute is an input (in) to a vertex shader.
@@ -39,7 +41,7 @@ void main() {
 
 And here's the new one
 
-```
+```glsl
 // an attribute is an input (in) to a vertex shader.
 // It will receive data from a buffer
 *in vec4 a_position;
@@ -61,7 +63,7 @@ to be 1 but we can take advantage of the fact that for attributes
 
 Then we need to provide 3D data.
 
-```
+```js
   ...
 
   // Tell the attribute how to get data out of positionBuffer (ARRAY_BUFFER)
@@ -112,7 +114,7 @@ Next we need to change all the matrix functions from 2D to 3D
 
 Here are the 2D (before) versions of m3.translation, m3.rotation, and m3.scaling
 
-```
+```js
 var m3 = {
   translation: function translation(tx, ty) {
     return [
@@ -144,7 +146,7 @@ var m3 = {
 
 And here are the updated 3D versions.
 
-```
+```js
 var m4 = {
   translation: function(tx, ty, tz) {
     return [
@@ -235,7 +237,7 @@ which gives you these rotations.
 
 Similarly we'll make our simplified functions
 
-```
+```js
   translate: function(m, tx, ty, tz) {
     return m4.multiply(m, m4.translation(tx, ty, tz));
   },
@@ -257,9 +259,65 @@ Similarly we'll make our simplified functions
   },
 ```
 
+And we need a 4x4 matrix multiplication function
+
+```js
+  multiply: multiply(a, b) {
+    var b00 = b[0 * 4 + 0];
+    var b01 = b[0 * 4 + 1];
+    var b02 = b[0 * 4 + 2];
+    var b03 = b[0 * 4 + 3];
+    var b10 = b[1 * 4 + 0];
+    var b11 = b[1 * 4 + 1];
+    var b12 = b[1 * 4 + 2];
+    var b13 = b[1 * 4 + 3];
+    var b20 = b[2 * 4 + 0];
+    var b21 = b[2 * 4 + 1];
+    var b22 = b[2 * 4 + 2];
+    var b23 = b[2 * 4 + 3];
+    var b30 = b[3 * 4 + 0];
+    var b31 = b[3 * 4 + 1];
+    var b32 = b[3 * 4 + 2];
+    var b33 = b[3 * 4 + 3];
+    var a00 = a[0 * 4 + 0];
+    var a01 = a[0 * 4 + 1];
+    var a02 = a[0 * 4 + 2];
+    var a03 = a[0 * 4 + 3];
+    var a10 = a[1 * 4 + 0];
+    var a11 = a[1 * 4 + 1];
+    var a12 = a[1 * 4 + 2];
+    var a13 = a[1 * 4 + 3];
+    var a20 = a[2 * 4 + 0];
+    var a21 = a[2 * 4 + 1];
+    var a22 = a[2 * 4 + 2];
+    var a23 = a[2 * 4 + 3];
+    var a30 = a[3 * 4 + 0];
+    var a31 = a[3 * 4 + 1];
+    var a32 = a[3 * 4 + 2];
+    var a33 = a[3 * 4 + 3];
+    dst[ 0] = b00 * a00 + b01 * a10 + b02 * a20 + b03 * a30;
+    dst[ 1] = b00 * a01 + b01 * a11 + b02 * a21 + b03 * a31;
+    dst[ 2] = b00 * a02 + b01 * a12 + b02 * a22 + b03 * a32;
+    dst[ 3] = b00 * a03 + b01 * a13 + b02 * a23 + b03 * a33;
+    dst[ 4] = b10 * a00 + b11 * a10 + b12 * a20 + b13 * a30;
+    dst[ 5] = b10 * a01 + b11 * a11 + b12 * a21 + b13 * a31;
+    dst[ 6] = b10 * a02 + b11 * a12 + b12 * a22 + b13 * a32;
+    dst[ 7] = b10 * a03 + b11 * a13 + b12 * a23 + b13 * a33;
+    dst[ 8] = b20 * a00 + b21 * a10 + b22 * a20 + b23 * a30;
+    dst[ 9] = b20 * a01 + b21 * a11 + b22 * a21 + b23 * a31;
+    dst[10] = b20 * a02 + b21 * a12 + b22 * a22 + b23 * a32;
+    dst[11] = b20 * a03 + b21 * a13 + b22 * a23 + b23 * a33;
+    dst[12] = b30 * a00 + b31 * a10 + b32 * a20 + b33 * a30;
+    dst[13] = b30 * a01 + b31 * a11 + b32 * a21 + b33 * a31;
+    dst[14] = b30 * a02 + b31 * a12 + b32 * a22 + b33 * a32;
+    dst[15] = b30 * a03 + b31 * a13 + b32 * a23 + b33 * a33;
+    return dst;
+  },
+```
+
 We also need to update the projection function. Here's the old one
 
-```
+```js
   projection: function (width, height) {
     // Note: This matrix flips the Y axis so 0 is at the top.
     return [
@@ -274,7 +332,7 @@ We also need to update the projection function. Here's the old one
 which converted from pixels to clip space. For our first attempt at
 expanding it to 3D let's try
 
-```
+```js
   projection: function(width, height, depth) {
     // Note: This matrix flips the Y axis so 0 is at the top.
     return [
@@ -294,7 +352,7 @@ for `depth` it will be `-depth / 2` to `+depth / 2`.
 
 Finally we need to to update the code that computes the matrix.
 
-```
+```js
   // Compute the matrix
 *  var matrix = m4.projection(gl.canvas.clientWidth, gl.canvas.clientHeight, 400);
 *  matrix = m4.translate(matrix, translation[0], translation[1], translation[2]);
@@ -317,7 +375,7 @@ current F is made of 3 rectangles, 2 triangles each.  To make it 3D will
 require a total of 16 rectangles.  the 3 rectangles on the front, 3 on the
 back, 1 on the left, 4 on the right, 2 on the tops, 3 on the bottoms.
 
-<img class="webgl_center" width="300" src="resources/3df.svg" />
+<img class="webgl_center noinvertdark" width="300" src="resources/3df.svg" />
 
 That's quite a few to list out here.
 16 rectangles with 2 triangles per rectangle and 3 vertices per triangle is 96
@@ -325,7 +383,7 @@ vertices.  If you want to see all of them view the source of the sample.
 
 We have to draw more vertices so
 
-```
+```js
     // Draw the geometry.
     var primitiveType = gl.TRIANGLES;
     var offset = 0;
@@ -344,7 +402,7 @@ shader to the fragment shader.
 
 Here's the new vertex shader
 
-```
+```glsl
 #version 300 es
 
 // an attribute is an input (in) to a vertex shader.
@@ -370,7 +428,7 @@ void main() {
 
 And we need to use that color in the fragment shader
 
-```
+```glsl
 #version 300 es
 
 precision mediump float;
@@ -389,7 +447,7 @@ void main() {
 We need to lookup the attribute location to supply the colors, then setup another
 buffer and attribute to give it the colors.
 
-```
+```js
   ...
   var colorAttributeLocation = gl.getAttribLocation(program, "a_color");
 
@@ -448,7 +506,7 @@ that 3D 'F', front, back, sides, etc get drawn in the order they appear in
 our geometry data.  That doesn't give us quite the desired results as sometimes
 the ones in the back get drawn after the ones in the front.
 
-<img class="webgl_center" width="163" height="190" src="resources/polygon-drawing-order.gif" />
+<img class="webgl_center" style="background-color: transparent;" width="163" height="190" src="resources/polygon-drawing-order.gif" />
 
 The <span style="background: rgb(200, 70, 120); color: white; padding: 0.25em">redish part</span> is
 the **front** of the 'F'  but because it's the first part of our data
@@ -456,16 +514,16 @@ it is drawn first and then the other triangles behind it get drawn
 after covering it up. For example the  <span style="background: rgb(80, 70, 200); color: white; padding: 0.25em">purple part</span>
 is actually the back of the 'F'. It gets drawn 2nd because it comes 2nd in our data.
 
-Triangles in WebGL have the concept of front facing and back facing.  A
-front facing triangle has its vertices go in a clockwise direction.  A
-back facing triangle has its vertices go in a counter clockwise direction
+Triangles in WebGL have the concept of front facing and back facing.  By default a
+front facing triangle has its vertices go in a counter clockwise direction.  A
+back facing triangle has its vertices go in a clockwise direction.
 
 <img src="resources/triangle-winding.svg" class="webgl_center" width="400" />
 
 WebGL has the ability to draw only forward facing or back facing
 triangles.  We can turn that feature on with
 
-```
+```js
   gl.enable(gl.CULL_FACE);
 ```
 
@@ -539,14 +597,14 @@ drawn.
 
 We can turn on this feature nearly as simply as we turned on culling with
 
-```
+```js
   gl.enable(gl.DEPTH_TEST);
 ```
 
 
 We also need to clear the depth buffer back to 1.0 before we start drawing.
 
-```
+```js
   // Draw the scene.
   function drawScene() {
 
@@ -573,7 +631,7 @@ called `ortho` or `orthographic` that looks like this
         return [
           2 / (right - left), 0, 0, 0,
           0, 2 / (top - bottom), 0, 0,
-          0, 0, 2 / (far - near), 0,
+          0, 0, 2 / (near - far), 0,
 
           (left + right) / (left - right),
           (bottom + top) / (bottom - top),

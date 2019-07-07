@@ -1,5 +1,7 @@
 Title: WebGL 3D Perspective
 Description: How to display perspective in 3D in WebGL
+TOC: WebGL2 3D Perspective
+
 
 This post is a continuation of a series of posts about WebGL.
 The first [started with fundamentals](webgl-fundamentals.html) and
@@ -14,7 +16,7 @@ Instead we need to add perspective. Just what is perspective?
 It's basically the feature that things that are further away appear
 smaller.
 
-<img class="webgl_center" width="500" src="resources/perspective-example.svg" />
+<div class="webgl_center noinvertdark"><img style="width: 500px;" src="resources/perspective-example.svg" /></div>
 
 Looking at the example above we see that things further away
 are drawn smaller. Given our current sample one easy way to
@@ -99,7 +101,7 @@ And here's the result.
 If it's not clear drag the "fudgeFactor" slider from 1.0 to 0.0 to see
 what things used to look like before we added our divide by Z code.
 
-<img class="webgl_center" src="resources/orthographic-vs-perspective.png" />
+<div class="webgl_center"><img src="resources/orthographic-vs-perspective.png" /></div>
 <div class="webgl_center">orthographic vs perspective</div>
 
 It turns out WebGL takes the x,y,z,w value we assign to `gl_Position` in our vertex
@@ -275,7 +277,7 @@ and that WebGL conveniently does this divide by Z for us.
 But there are still some problems. For example if you set Z to around -100 you'll see something like
 the animation below
 
-<img class="webgl_center" src="resources/z-clipping.gif" style="border: 1px solid black;" />
+<div class="webgl_center"><img src="resources/z-clipping.gif" style="border: 1px solid black;" /></div>
 
 What's going on? Why is the F disappearing early? Just like WebGL clips X and Y to
 values between +1 to -1 it also clips Z. What we're seeing here is where Z < -1.
@@ -325,11 +327,15 @@ things will get clipped in the front and `zFar` defines where things get clipped
 you'll see the front of the spinning cubes get clipped. Set `zFar` to 24 and you'll see the back of the cubes
 get clipped.
 
-There's just one problem left. This matrix assumes there's a viewer at 0,0,0 and it assumes it's looking
-in the negative Z direction and that positive Y is up. Our matrices up to this point have done things
-in a different way. To make this work we need to put our objects in front of the view.
+There's just one problem left. This matrix assumes there's a viewer at 0,0,0 and
+it assumes it's looking in the negative Z direction and that positive Y is up.
+Our matrices up to this point have done things in a different way. 
 
-We could do that by moving our F. We were drawing at (45, 150, 0). Let's move it to (-150, 0, -360)
+To make it appear we need to move it inside the frustum.
+We can do that by moving our F. We were drawing at (45, 150, 0). Let's move it to (-150, 0, -360)
+and let's set the rotation to something that makes it appear right side up.
+
+<div class="webgl_center"><img src="resources/f-right-side.svg" style="width: 500px;" caption="not to scale"></div>
 
 Now, to use it we just need to replace our old call to m4.projection with a call to
 m4.perspective
@@ -356,14 +362,48 @@ We're not done but this article is getting too long. Next up, [cameras](webgl-3d
 <div class="webgl_bottombar">
 <h3>Why did we move the F so far in Z (-360)?</h3>
 <p>
-In the other samples we had the F at (45, 150, 0) but in the last sample it's been moved to (-150, 0, -360).
-Why did it need to be moved so far away? </p>
-<p>The reason is up until this last sample our `m4.projection` function has made a projection from
-pixels to clip space. That means the area we were displaying represented 400x300 pixels. Using 'pixels'
-really doesn't make sense in 3D. The new projection makes a frustum that makes it so the area represented
-at `zNear` is 2 units tall and 2 * aspect units wide. Since our 'F' is 150 units big and the view can only
-see 2 units when it's at zNear we need to move it pretty far away from the origin to see it all.</p>
-<p>Similarly we moved 'X' from 45 to -150. Again, the view used to represent 0 to 400 units across.
-Now it represents -1 to +1 units across.
+
+In the other samples we had the F at (45, 150, 0) but in the last sample
+it's been moved to (-150, 0, -360).  Why did it need to be moved so far
+away?
+
 </p>
+<p>
+
+The reason is up until this last sample our <code>m4.projection</code> function
+has made a projection from pixels to clip space.  That means the area we
+were displaying represented 400x300 pixels.  Using 'pixels' really doesn't
+make sense in 3D. 
+
+</p>
+<p>
+
+In other words if we tried to draw with the F at 0,0,0 and not rotated we'd get this
+
+</p>
+
+<div class="webgl_center"><img src="resources/f-big-and-wrong-side.svg" style="width: 500px;"></div>
+
+<p>
+The F has its top left front corner at the origin. The projection
+looks toward negative Z but our F is built in positive Z. The projection has
+positive Y up but our F is built with positive Z down.
+</p>
+
+<p>
+Our new projection only sees what's in the blue frustum. With -zNear = 1 and with a field of view of 60 degrees
+then at Z = -1 the frustum is only 1.54 units tall and 1.54 * aspect units wide. At Z = -2000 (-zFar) its 2309 units tall.
+Since our F is 150 units big and the view can only see 1.54
+units when something is at <code>-zNear</code> we need to move it pretty far away from the origin to
+see all of it.
+</p>
+
+<p>
+Moving it -360 units in Z moves in inside the frustum. We also rotated it to be right side up.
+</p>
+
+<div class="webgl_center"><img src="resources/f-right-side.svg" style="width: 500px;"><div>not to scale</div></div>
+
 </div>
+
+

@@ -36,6 +36,11 @@ canvas {
        0px  1px 0 black,
        0px -1px 0 black;
 }
+@media (prefers-color-scheme: dark) {
+  canvas {
+    background: #444;
+  }
+}
 </style>
 <script id="vertexColorVertexShader" type="text/something-not-javascript">
 attribute vec4 position;
@@ -171,7 +176,7 @@ void main() {
 </body>
 </html>
 <script src="../../resources/twgl-full.min.js"></script>
-<script src="../../resources/webgl-lessons-helper.js"></script> <!-- you can delete this script. it is only used on the site to help with errors -->
+<script src="../../resources/lessons-helper.js"></script> <!-- you can delete this script. it is only used on the site to help with errors -->
 <script>
 "use strict";
 var m4 = twgl.m4;

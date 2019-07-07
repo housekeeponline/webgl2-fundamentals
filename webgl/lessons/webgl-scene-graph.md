@@ -1,5 +1,7 @@
 Title: WebGL - Scene Graph
 Description: What a scene graph is want what it's used for
+TOC: Scene Graphs
+
 
 This article is a continuation of [previous WebGL articles](webgl-fundamentals.html).
 The previous article was about [drawing multiple things](webgl-drawing-multiple-things.html).

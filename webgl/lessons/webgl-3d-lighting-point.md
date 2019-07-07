@@ -1,5 +1,7 @@
 Title: WebGL 3D - Point Lighting
 Description: How to implement point lighting in WebGL
+TOC: Point Lighting
+
 
 This article is a continuation of [WebGL 3D Directional Lighting](webgl-3d-lighting-directional.html).
 If you haven't read that I suggest [you start there](webgl-3d-lighting-directional.html).
@@ -90,7 +92,7 @@ and so would not be a complete unit vector
 
     void main() {
       // because v_normal is a varying it's interpolated
-      // we it will not be a uint vector. Normalizing it
+      // so it will not be a unit vector. Normalizing it
       // will make it a unit vector again
       vec3 normal = normalize(v_normal);
 
@@ -99,11 +101,11 @@ and so would not be a complete unit vector
     -  float light = dot(v_normal, u_reverseLightDirection);
     +  float light = dot(v_normal, surfaceToLightDirection);
 
-      gl_FragColor = u_color;
+      outColor = u_color;
 
       // Lets multiply just the color portion (not the alpha)
       // by the light
-      gl_FragColor.rgb *= light;
+      outColor.rgb *= light;
     }
 
 
@@ -217,9 +219,11 @@ into the view.
 
     uniform vec4 u_color;
 
+    out vec4 outColor;
+
     void main() {
       // because v_normal is a varying it's interpolated
-      // we it will not be a uint vector. Normalizing it
+      // so it will not be a unit vector. Normalizing it
       // will make it a unit vector again
       vec3 normal = normalize(v_normal);
 
@@ -230,14 +234,14 @@ into the view.
       float light = dot(normal, surfaceToLightDirection);
     +  float specular = dot(normal, halfVector);
 
-      gl_FragColor = u_color;
+      outColor = u_color;
 
       // Lets multiply just the color portion (not the alpha)
       // by the light
-      gl_FragColor.rgb *= light;
+      outColor.rgb *= light;
 
     +  // Just add in the specular
-    +  gl_FragColor.rgb += specular;
+    +  outColor.rgb += specular;
     }
 
 Finally we have to look up `u_viewWorldPosition` and set it
@@ -319,10 +323,10 @@ F. We could provide a light color as well if wanted colored lights
 
       // Lets multiply just the color portion (not the alpha)
       // by the light
-    *  gl_FragColor.rgb *= light * u_lightColor;
+    *  outColor.rgb *= light * u_lightColor;
 
       // Just add in the specular
-    *  gl_FragColor.rgb += specular * u_specularColor;
+    *  outColor.rgb += specular * u_specularColor;
     }
 
 and of course

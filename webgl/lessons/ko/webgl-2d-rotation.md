@@ -1,5 +1,7 @@
-﻿Title: WebGL 2D 회전
+Title: WebGL 2D 회전
 Description: 2D에서 회전 하는 방법
+TOC: WebGL2 2D 회전
+
 
 이 글은 WebGL 게시글 시리즈에서 이어지는 글입니다. 첫 번쨰는 [기초로 시작](webgl-fundamentals.html)이였으며 바로 전은 [기하학에 대한 이동](webgl-2d-translation.html)이였습니다.
 
@@ -11,7 +13,7 @@ I'm going to admit right up front I have no idea if how I explain this
 
 여기에 단위 원이 있습니다.
 
-{{{diagram url="../unit-circle.html" width="300" height="300" }}}
+{{{diagram url="../unit-circle.html" width="300" height="300" className="invertdark" }}}
 
 파란색 핸들을 원 주위로 드래그하면 X 와 Y의 위치가 변경됩니다. 이는 보여 원위의 그 지점의 위치를 나타냅니다. 상단에서 Y는 1이고 X는 0입니다. 오른쪽에서 X는 1이고 Y는 0입니다.
 
@@ -103,7 +105,7 @@ I'm going to admit right up front I have no idea if how I explain this
 
 직사각형이 있고 회전하려고 한다고 가정해 보겠습니다. 회전하기 전에 오른쪽 위 구석이 3.0, 9.0에 있습니다. 12 방향에서 시계 방향으로 30도 단위 점을 찍어 봅시다.
 
-<img src="../resources/rotate-30.png" class="webgl_center" />
+<img src="../resources/rotate-30.png" class="webgl_center invertdark" />
 
 원에서 위치는 0.5와 0.87입니다.
 
@@ -118,7 +120,7 @@ I'm going to admit right up front I have no idea if how I explain this
 
 시계 방향으로 60도 회전도 똑같습니다.
 
-<img src="../resources/rotate-60.png" class="webgl_center" />
+<img src="../resources/rotate-60.png" class="webgl_center invertdark" />
 
 원에서 위치는 0.87과 0.5입니다.
 

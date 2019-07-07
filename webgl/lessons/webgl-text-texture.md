@@ -1,5 +1,7 @@
 Title: WebGL Text - Textures
 Description: Display Text in WebGL using Textures
+TOC: Text - Using a Texture
+
 
 This post is a continuation of many articles about WebGL. The last one
 was about [using Canvas 2D for rendering text over a WebGL canvas](webgl-text-canvas2d.html).
@@ -420,8 +422,10 @@ First we'll change the text shader to multiply by a color
     uniform sampler2D u_texture;
     +uniform vec4 u_color;
 
+    out vec4 outColor;
+
     void main() {
-    *   gl_FragColor = texture2D(u_texture, v_texcoord) * u_color;
+    *   outColor = texture2D(u_texture, v_texcoord) * u_color;
     }
 
 

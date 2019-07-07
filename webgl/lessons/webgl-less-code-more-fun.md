@@ -1,5 +1,7 @@
 Title: WebGL - Less Code, More Fun
 Description: Ways to make programming WebGL less verbose
+TOC: Less Code, More Fun
+
 
 This post is a continuation of a series of posts about WebGL.
 The first [started with fundamentals](webgl-fundamentals.html).
@@ -276,7 +278,7 @@ twgl.setUniforms(uniformSetters, uniformThatAreTheSameForAllObjects);
 objects.forEach(function(object) {
   computeMatricesForObject(object, uniformsThatAreComputedForEachObject);
   twgl.setUniforms(uniformSetters, uniformThatAreComputedForEachObject);
-  twgl.setUniforms(unifromSetters, objects.materialUniforms);
+  twgl.setUniforms(uniformSetters, objects.materialUniforms);
   gl.drawArrays(...);
 });
 ```
@@ -375,7 +377,7 @@ like things to be what they consider as simple as possible.
 
 Why don't we look at the attributes on the shader program to figure out the number of components?
 That's because it's common to supply 3 components (x, y, z) from a buffer but use a `vec4` in
-the shader. For attibutes WebGL will set `w = 1` automatically. But that means we can't easily
+the shader. For attributes WebGL will set `w = 1` automatically. But that means we can't easily
 know the user's intent since what they declared in their shader might not match the number of
 components they provide.
 

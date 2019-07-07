@@ -30,7 +30,6 @@ for webgl-utils, m3, m4, and webgl-lessons-ui.
 -->
 <script src="resources/webgl-utils.js"></script>
 <script src="resources/webgl-lessons-ui.js"></script>
-<script src="resources/webgl-lessons-helper.js"></script> <!-- you can and should delete this script. it is only used on the site to help with errors -->
 <script src="resources/m4.js"></script>
 <script>
 "use strict";
@@ -98,7 +97,7 @@ out vec4 outColor;
 
 void main() {
   // because v_normal is a varying it's interpolated
-  // we it will not be a uint vector. Normalizing it
+  // so it will not be a unit vector. Normalizing it
   // will make it a unit vector again
   vec3 normal = normalize(v_normal);
 

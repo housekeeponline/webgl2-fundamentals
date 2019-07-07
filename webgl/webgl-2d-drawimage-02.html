@@ -18,7 +18,6 @@ and http://webgl2fundamentals.org/webgl/lessons/webgl-resizing-the-canvas.html
 for webgl-utils, m3, m4, and webgl-lessons-ui.
 -->
 <script src="resources/webgl-utils.js"></script>
-<script src="resources/webgl-lessons-helper.js"></script> <!-- you can delete this script. it is only used on the site to help with errors -->
 <script src="resources/m4.js"></script>
 <script>
 "use strict";
@@ -267,7 +266,7 @@ function main() {
     gl.activeTexture(gl.TEXTURE0 + textureUnit);
     gl.bindTexture(gl.TEXTURE_2D, tex);
 
-    // this matirx will convert from pixels to clip space
+    // this matrix will convert from pixels to clip space
     var matrix = m4.orthographic(
         0, gl.canvas.clientWidth, gl.canvas.clientHeight, 0, -1, 1);
 

@@ -1,5 +1,7 @@
-﻿Title: WebGL Shaders and GLSL
+Title: WebGL Shaders and GLSL
 Description: What's a shader and what's GLSL
+TOC: Shaders and GLSL
+
 
 This is a continuation from [WebGL Fundamentals](webgl-fundamentals.html).
 If you haven't read about how WebGL works you might want to [read this first](webgl-how-it-works.html).
@@ -21,13 +23,12 @@ A Vertex Shader's job is to generate clipspace coordinates. It always takes the 
        gl_Position = doMathToMakeClipspaceCoordinates
     }
 
-Your shader is called once per vertex. Each time it's called you are required to set the
-the special global variable, `gl_Position` to some clipspace coordinates.
+Your shader is called once per vertex. Each time it's called you are required to set the special global variable, `gl_Position` to some clipspace coordinates.
 
 Vertex shaders need data. They can get that data in 3 ways.
 
 1.  [Attributes](#attributes) (data pulled from buffers)
-2.  [Uniforms](#uniforms) (values that stay the same during for all vertices of a single draw call)
+2.  [Uniforms](#uniforms) (values that stay the same for all vertices of a single draw call)
 3.  [Textures](#textures-in-vertex-shaders) (data from pixels/texels)
 
 ### Attributes
@@ -219,9 +220,11 @@ function `texture` to extract a value from it.
 
     uniform sampler2D u_texture;
 
+    out vec4 outColor;
+
     void main() {
        vec2 texcoord = vec2(0.5, 0.5)  // get a value from the middle of the texture
-       gl_FragColor = texture(u_texture, texcoord);
+       outColor = texture(u_texture, texcoord);
     }
 
 What data comes out of the texture is [dependent on many settings](webgl-3d-textures.html).
@@ -268,7 +271,7 @@ covered in [how it works](webgl-how-it-works.html).
 
 To use a varying we need to declare matching varyings in both a vertex and fragment shader.
 We set the *out* varying in the vertex shader with some value per vertex. When WebGL draws pixels
-it will optionallinterpolate between those values and pass them to the corresponding *in* varying in
+it will optionally interpolate between those values and pass them to the corresponding *in* varying in
 the fragment shader
 
 Vertex shader
@@ -406,7 +409,7 @@ Reference Card](https://www.khronos.org/files/opengles3-quick-reference-card.pdf
 If you like really dry and verbose stuff you can try
 [the GLSL ES 3.00 spec](https://www.khronos.org/registry/gles/specs/3.0/GLSL_ES_Specification_3.00.3.pdf).
 
-## Putting it all togehter
+## Putting it all together
 
 That's the point of this entire series of posts. WebGL is all about creating various shaders, supplying
 the data to those shaders and then calling `gl.drawArrays`, `gl.drawElements`, etc to have WebGL process
@@ -417,7 +420,7 @@ Actually creating the shaders requires several lines of code. Since those lines 
 most WebGL programs and since once written you can pretty much ignore them [how to compile GLSL shaders
 and link them into a shader program is covered here](webgl-boilerplate.html).
 
-If you're just starting from here you can go in 2 directions. If you are interested in image procesing
+If you're just starting from here you can go in 2 directions. If you are interested in image processing
 I'll show you [how to do some 2D image processing](webgl-image-processing.html).
 If you are interesting in learning about translation,
 rotation and scale then [start here](webgl-2d-translation.html).

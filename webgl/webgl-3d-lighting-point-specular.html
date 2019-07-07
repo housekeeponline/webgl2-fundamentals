@@ -27,7 +27,6 @@ for webgl-utils, m3, m4, and webgl-lessons-ui.
 -->
 <script src="resources/webgl-utils.js"></script>
 <script src="resources/webgl-lessons-ui.js"></script>
-<script src="resources/webgl-lessons-helper.js"></script> <!-- you can delete this script. it is only used on the site to help with errors -->
 <script src="resources/m4.js"></script>
 <script>
 "use strict";
@@ -151,6 +150,8 @@ function main() {
   // Turn on the attribute
   gl.enableVertexAttribArray(positionAttributeLocation);
 
+  // Create a buffer
+  var positionBuffer = gl.createBuffer();
   // Bind it to ARRAY_BUFFER (think of it as ARRAY_BUFFER = positionBuffer)
   gl.bindBuffer(gl.ARRAY_BUFFER, positionBuffer);
   // Set Geometry.

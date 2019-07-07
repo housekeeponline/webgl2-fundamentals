@@ -1,5 +1,7 @@
 Title: WebGL Boilerplate
 Description: Some of the code you need for all WebGL programs
+TOC: Boilerplate
+
 
 This is a continuation from [WebGL Fundamentals](webgl-fundamentals.html).
 WebGL sometimes appears complicated to learn because most lessons
@@ -225,9 +227,9 @@ Note while we're add it there are several more scripts for similar reasons
     This provides code to setup sliders that have a visible value that updates when you drag the slider.
     Again I didn't want to clutter all the files with this code so it's in one place.
 
-*   [`webgl-lessons-helper.js`](../resources/webgl-lessons-helper.js)
+*   [`lessons-helper.js`](../resources/lessons-helper.js)
 
-    This script is not needed except on webglfundmentals.org. It helps print error messages to
+    This script is not needed except on webgl2fundmentals.org. It helps print error messages to
     the screen when used inside the live editor among other things.
 
 *   [`m3.js`](../resources/m3.js)

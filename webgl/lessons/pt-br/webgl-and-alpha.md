@@ -1,5 +1,7 @@
 Title: Alfa e a WebGL
 Description: Como o alfa no WebGL é diferente do alfa no OpenGL
+TOC: WebGL2 e o Alpha
+
 
 Eu notei que alguns desenvolvedores do OpenGL têm problemas com a forma como a WebGL
 trata o alfa no backbuffer (ou seja, a tela), então eu pensei,
